@@ -1,0 +1,14 @@
+import os
+from dotenv import load_dotenv
+load_dotenv()
+from langchain_tavily import TavilySearch
+
+
+os.environ["GOOGLE_API_KEY"] = os.getenv("GOOGLE_API_KEY")
+
+from langchain.chat_models import init_chat_model
+
+
+model = init_chat_model("gemini-2.5-flash", model_provider="google_genai")
+response = model.invoke("Hello, world!")
+print(response.content)

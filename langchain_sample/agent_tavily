@@ -1,0 +1,32 @@
+from langgraph.prebuilt import create_react_agent
+from dotenv import load_dotenv
+import os
+from langchain_tavily import TavilySearch
+from langchain.chat_models import init_chat_model
+load_dotenv()  # loads .env file
+
+model = init_chat_model("gemini-2.5-flash", model_provider="google_genai")
+
+
+search = TavilySearch(max_results=2)
+tools = [search]
+
+agent_executor = create_react_agent(model, tools)
+input_message = {"role": "user", "content": """ You are a recruitment assistant helping in findind the 
+suitable job links for an ai developer at dubai location.You have to provide specific link to the job posted on any job board
+                 posted """}
+response = agent_executor.invoke({"messages": [input_message]})
+
+for message in response["messages"]:
+    message.pretty_print()
+
+#To just get the output
+"""
+print("streaming output /n/n")
+
+for step, metadata in agent_executor.stream(
+    {"messages": [input_message]}, stream_mode="messages"
+):
+    if metadata["langgraph_node"] == "agent" and (text := step.text()):
+        print(text, end="|")
+"""

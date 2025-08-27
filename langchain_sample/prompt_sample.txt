@@ -1,0 +1,25 @@
+input_message = {"role": "user", "content": f"""
+        You are a recruitment assistant helping candidates find the most suitable job opportunities based on their skills and experience.
+
+        Please analyze the following resume and extract the following details:
+        - Candidate's full name
+        - Key skills and expertise
+        - Total years of professional experience
+        - Most suitable job titles based on the resume
+        - Preferred industries or sectors
+
+        Resume:
+        {resume_text}
+
+        After analyzing, perform a web search for recently posted, relevant jobs matching this profile in {location}. 
+        The candidate is primarily interested in the role(s): {roles}, but please also consider other suitable job titles you identify from the resume.
+
+        Provide a list of job postings with clickable links, organized clearly in a tabular format or bullet points for easy reference.
+        Please follow these instructions strictly:
+        1. Return only direct job posting URLs; do not include links to articles, blogs, GitHub repos, or non-job postings.
+        2. Ensure each job link corresponds to a listing published in the last 24 hours only.
+        3. Provide the links in a clear, clickable format, such as a bullet list or simple table.
+        4. Please provide no more than {number} job URLs. 
+        5. The job location should be strictly {location}
+        """}
+        
